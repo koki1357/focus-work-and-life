@@ -8,8 +8,6 @@ import styles from './Login.module.scss';
 import { useLogin } from './useLogin';
 import { useRegisterUser } from './useRegisterUser';
 
-interface LoginProps {}
-
 const Login = () => {
   const [userId, setUserId] = useState('');
   const [password, setPassword] = useState('');
