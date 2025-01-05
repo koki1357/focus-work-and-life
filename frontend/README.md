@@ -3,6 +3,9 @@ cd frontend
 bun install
 bun run dev
 
+# Development Commands
+- `npm run lint` - Run ESLint to check TypeScript/TSX files
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
