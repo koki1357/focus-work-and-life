@@ -1,5 +1,5 @@
 // hooks/useBooks.ts
-import { Book } from '@/common/types';
+import { ApiError, Book } from '@/common/types';
 import { createHeader } from '@/common/util/api-util';
 import { errorAtom } from '@/components/organisms/error-modal/ErrorModal';
 import axios from 'axios';
@@ -19,13 +19,14 @@ const useBooks = () => {
           headers: createHeader(),
         });
         setBooks(response.data.data);
-      } catch (error: any) {
+      } catch (error: unknown) {
+        const apiError = error as ApiError;
         setErrorState({
           hasError: true,
-          messages: [error.response.data.message],
+          messages: [apiError.response.data.message],
         });
-        setError(error);
-        throw error;
+        setError(apiError.response.data.message);
+        throw apiError;
       } finally {
         setLoading(false);
       }

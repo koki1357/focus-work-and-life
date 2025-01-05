@@ -1,5 +1,5 @@
 // frontend/src/hooks/useBookDetail.ts
-import { Book } from '@/common/types';
+import { ApiError, Book } from '@/common/types';
 import { createHeader } from '@/common/util/api-util';
 import { errorAtom } from '@/components/organisms/error-modal/ErrorModal';
 import axios from 'axios';
@@ -24,13 +24,14 @@ const useBookDetail = () => {
           },
         });
         setBook(response.data.data[0]);
-      } catch (error: any) {
+      } catch (error: unknown) {
+        const apiError = error as ApiError;
         setErrorState({
           hasError: true,
-          messages: [error.response.data.message],
+          messages: [apiError.response.data.message],
         });
-        setError(error);
-        throw error;
+        setError(apiError.response.data.message);
+        throw apiError;
       } finally {
         setLoading(false);
       }

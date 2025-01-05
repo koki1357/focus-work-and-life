@@ -1,3 +1,4 @@
+import { ApiError } from '@/common/types';
 import { createHeader } from '@/common/util/api-util';
 import { errorAtom } from '@/components/organisms/error-modal/ErrorModal';
 import axios from 'axios';
@@ -18,12 +19,13 @@ export const useRegisterUser = () => {
         headers: createHeader(),
       });
       return;
-    } catch (error: any) {
+    } catch (error: unknown) {
+      const apiError = error as ApiError;
       setErrorState({
         hasError: true,
-        messages: [error.response.data.message],
+        messages: [apiError.response.data.message],
       });
-      throw error;
+      throw apiError;
     }
   };
 
