@@ -1,3 +1,4 @@
+import { ApiError } from '@/common/types';
 import { errorAtom } from '@/components/organisms/error-modal/ErrorModal';
 import axios from 'axios';
 import { useAtom } from 'jotai';
@@ -28,12 +29,13 @@ export const useLogin = () => {
       localStorage.setItem('userId', data?.userId);
 
       return data;
-    } catch (error: any) {
+    } catch (error: unknown) {
+      const apiError = error as ApiError;
       setErrorState({
         hasError: true,
-        messages: [error.response.data.message],
+        messages: [apiError.response.data.message],
       });
-      throw error;
+      throw apiError;
     }
   };
   return { login };
