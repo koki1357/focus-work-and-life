@@ -10,18 +10,7 @@ public class ApiResponse<T> {
     private String message;
     private T data;
 
-    // Default constructor for Jackson
-    public ApiResponse() {}
-
     @JsonCreator
-    public ApiResponse(
-        @JsonProperty("statusCode") int statusCode,
-        @JsonProperty("message") String message) {
-        this.statusCode = statusCode;
-        this.message = message;
-    }
-
-    @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
     public ApiResponse(
         @JsonProperty("statusCode") int statusCode,
         @JsonProperty("message") String message,
@@ -29,5 +18,13 @@ public class ApiResponse<T> {
         this.statusCode = statusCode;
         this.message = message;
         this.data = data;
+    }
+
+    public static <T> ApiResponse<T> of(int statusCode, String message) {
+        return new ApiResponse<>(statusCode, message, null);
+    }
+
+    public static <T> ApiResponse<T> of(int statusCode, String message, T data) {
+        return new ApiResponse<>(statusCode, message, data);
     }
 }

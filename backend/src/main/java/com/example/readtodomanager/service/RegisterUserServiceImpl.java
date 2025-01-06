@@ -30,7 +30,7 @@ public class RegisterUserServiceImpl implements RegisterUserService {
         Set<ConstraintViolation<RegisterUserServiceInDto>> violations = CommonValidator.validate(inDto);
 
         if (!violations.isEmpty()) {
-            return ResponseEntity.badRequest().body(new ApiResponse<>(StatusCode.BAD_REQUEST, "不正なリクエストです"));
+            return ResponseEntity.badRequest().body(ApiResponse.of(StatusCode.BAD_REQUEST, "不正なリクエストです"));
         }
 
         // リクエストのユーザがすでに登録されているかチェック
@@ -38,7 +38,7 @@ public class RegisterUserServiceImpl implements RegisterUserService {
 
         // すでに登録されている場合はエラーレスポンスを返す
         if (target != null) {
-            return ResponseEntity.badRequest().body(new ApiResponse<>(StatusCode.BAD_REQUEST, "すでに登録されているユーザです"));
+            return ResponseEntity.badRequest().body(ApiResponse.of(StatusCode.BAD_REQUEST, "すでに登録されているユーザです"));
         }
 
         String encodedPassword = BCrypt.hashpw(inDto.getPassword(), BCrypt.gensalt());
@@ -49,7 +49,7 @@ public class RegisterUserServiceImpl implements RegisterUserService {
         user.setPassword(encodedPassword);
         userRepository.insert(user);
 
-        return ResponseEntity.ok(new ApiResponse<>(StatusCode.OK, null));
+        return ResponseEntity.ok(ApiResponse.of(StatusCode.OK, null));
     }
 
 }
