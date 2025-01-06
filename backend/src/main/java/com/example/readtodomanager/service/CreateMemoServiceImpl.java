@@ -30,7 +30,7 @@ public class CreateMemoServiceImpl implements CreateMemoService {
         Set<ConstraintViolation<CreateMemoServiceInDto>> violations = CommonValidator.validate(createMemoServiceInDto);
 
         if (!violations.isEmpty()) {
-            return ResponseEntity.badRequest().body(new ApiResponse<String>(400, "不正なリクエストです"));
+            return ResponseEntity.badRequest().body(ApiResponse.of(400, "不正なリクエストです"));
         }
         
         // 本がある前提でメモを作成するので特に本の存在チェックはなしとする
@@ -45,6 +45,6 @@ public class CreateMemoServiceImpl implements CreateMemoService {
         // DBに登録する処理
         memoRepository.insert(memo);
 
-        return ResponseEntity.ok(new ApiResponse<String>(StatusCode.OK, null));
+        return ResponseEntity.ok(ApiResponse.of(StatusCode.OK, null));
     }
 }

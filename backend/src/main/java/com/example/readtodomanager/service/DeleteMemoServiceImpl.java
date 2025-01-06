@@ -29,7 +29,7 @@ public class DeleteMemoServiceImpl implements DeleteMemoService {
         Set<ConstraintViolation<DeleteMemoServiceInDto>> violations = CommonValidator.validate(deleteMemoServiceInDto);
 
         if (!violations.isEmpty()) {
-            return ResponseEntity.badRequest().body(new ApiResponse<Long>(400, "不正なリクエストです"));
+            return ResponseEntity.badRequest().body(ApiResponse.of(400, "不正なリクエストです"));
         }
 
         
@@ -38,20 +38,20 @@ public class DeleteMemoServiceImpl implements DeleteMemoService {
 
         // ②メモが存在しない場合はエラーレスポンスを返す
         if (memo == null) {
-            return ResponseEntity.badRequest().body(new ApiResponse<Long>(StatusCode.BAD_REQUEST, "メモが存在しません"));
+            return ResponseEntity.badRequest().body(ApiResponse.of(StatusCode.BAD_REQUEST, "メモが存在しません"));
 
         }
 
         // ③メモのuserIdを確認し、deleteMemoServiceInDtoのuserIdと一致しない場合はエラーレスポンスを返す
         if (!memo.getUserId().equals(deleteMemoServiceInDto.getUserId())) {
-            return ResponseEntity.badRequest().body(new ApiResponse<>(StatusCode.BAD_REQUEST, "メモを削除できません"));
+            return ResponseEntity.badRequest().body(ApiResponse.of(StatusCode.BAD_REQUEST, "メモを削除できません"));
         }
 
         // ④メモを物理削除する
         memoRepository.delete(memo.getId());
 
         // ⑤正常レスポンスを返す
-        return ResponseEntity.ok(new ApiResponse<Long>(StatusCode.OK, null, memo.getId()));
+        return ResponseEntity.ok(ApiResponse.of(StatusCode.OK, null, memo.getId()));
     }
 
 }

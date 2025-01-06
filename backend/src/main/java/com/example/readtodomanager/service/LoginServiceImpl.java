@@ -36,12 +36,12 @@ public class LoginServiceImpl implements LoginService {
 
         // ユーザーが存在しなかったらエラーを返す
         if (user == null) {
-            return ResponseEntity.badRequest().body(new ApiResponse<>(StatusCode.BAD_REQUEST, "ユーザIDもしくはパスワードが間違っています"));
+            return ResponseEntity.badRequest().body(ApiResponse.of(StatusCode.BAD_REQUEST, "ユーザIDもしくはパスワードが間違っています"));
         }
 
         // パスワードを比較し、一致していなかったらエラーを返す
         if (!BCrypt.checkpw(loginServiceInDto.getPassword(), user.getPassword())) {
-            return ResponseEntity.badRequest().body(new ApiResponse<>(StatusCode.BAD_REQUEST, "ユーザIDもしくはパスワードが間違っています"));
+            return ResponseEntity.badRequest().body(ApiResponse.of(StatusCode.BAD_REQUEST, "ユーザIDもしくはパスワードが間違っています"));
         }
 
         // ログイン済みの場合は、トークンの作成はしない
@@ -52,7 +52,7 @@ public class LoginServiceImpl implements LoginService {
             response.setUserId(session.getUserId());
             response.setToken(session.getToken());
 
-            return ResponseEntity.ok(new ApiResponse<LoginResponse>(StatusCode.OK, null, response));
+            return ResponseEntity.ok(ApiResponse.of(StatusCode.OK, null, response));
         }
 
         // トークンを生成する
@@ -71,7 +71,7 @@ public class LoginServiceImpl implements LoginService {
         response.setUserId(user.getUserId());
         response.setToken(token);
 
-        return ResponseEntity.ok(new ApiResponse<LoginResponse>(StatusCode.OK, null, response));
+        return ResponseEntity.ok(ApiResponse.of(StatusCode.OK, null, response));
 
     }
 

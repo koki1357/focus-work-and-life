@@ -31,7 +31,7 @@ public class RegisterBookServiceImpl implements RegisterBookService {
         Set<ConstraintViolation<RegisterBookServiceInDto>> violations = CommonValidator.validate(registerBookServiceInDto);
 
         if (!violations.isEmpty()) {
-            return ResponseEntity.badRequest().body(new ApiResponse<String>(StatusCode.BAD_REQUEST, "不正なリクエストです"));
+            return ResponseEntity.badRequest().body(ApiResponse.of(StatusCode.BAD_REQUEST, "不正なリクエストです"));
         }
         
         Book newBook = new Book();
@@ -43,6 +43,6 @@ public class RegisterBookServiceImpl implements RegisterBookService {
         newBook.setFinishDate(registerBookServiceInDto.getFinishDate());
         registerBookRepository.register(newBook);
 
-        return ResponseEntity.ok(new ApiResponse<>(HttpStatus.OK.value(), "Book registered successfully", null));
+        return ResponseEntity.ok(ApiResponse.of(HttpStatus.OK.value(), "Book registered successfully", null));
     }
 }

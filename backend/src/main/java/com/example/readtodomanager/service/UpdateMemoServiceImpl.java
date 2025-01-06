@@ -38,20 +38,20 @@ public class UpdateMemoServiceImpl implements UpdateMemoService {
         Set<ConstraintViolation<UpdateMemoServiceInDto>> violations = CommonValidator.validate(updateBookMemoServiceInDto);
 
         if (!violations.isEmpty()) {
-            return ResponseEntity.badRequest().body(new ApiResponse<Long>(StatusCode.BAD_REQUEST, "不正なリクエストです"));
+            return ResponseEntity.badRequest().body(ApiResponse.of(StatusCode.BAD_REQUEST, "不正なリクエストです"));
         }
         
         Memo memo = memoRepository.getMemo(updateBookMemoServiceInDto.getId());
 
         // めもが存在しない場合はエラーを返す
         if (memo == null) {
-            return ResponseEntity.badRequest().body(new ApiResponse<Long>(StatusCode.BAD_REQUEST, "本が存在しません"));
+            return ResponseEntity.badRequest().body(ApiResponse.of(StatusCode.BAD_REQUEST, "本が存在しません"));
         }
 
 
         // リクエストユーザが登録したメモ以外の更新は不可
         if (!memo.getUserId().equals(updateBookMemoServiceInDto.getUserId())) {
-            return ResponseEntity.badRequest().body(new ApiResponse<Long>(StatusCode.BAD_REQUEST, "削除できません"));
+            return ResponseEntity.badRequest().body(ApiResponse.of(StatusCode.BAD_REQUEST, "削除できません"));
         }
 
         // メモの内容を更新
@@ -61,7 +61,7 @@ public class UpdateMemoServiceImpl implements UpdateMemoService {
         // 更新処理
         memoRepository.update(memo);
 
-        return ResponseEntity.ok(new ApiResponse<>(StatusCode.OK, null, memo.getId()));
+        return ResponseEntity.ok(ApiResponse.of(StatusCode.OK, null, memo.getId()));
     }
 
 }

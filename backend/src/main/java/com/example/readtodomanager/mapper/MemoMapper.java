@@ -7,7 +7,7 @@ import java.util.List;
 
 @Mapper
 public interface MemoMapper {
-    Memo getMemo(Long bookId);
+    Memo getMemo(Long id);
 
     List<Memo> getMemoList(Long bookId,String userId);
 

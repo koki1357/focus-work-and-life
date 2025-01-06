@@ -14,8 +14,8 @@ public class MemoRepositoryImpl implements MemoRepository {
     @Autowired
     private MemoMapper memoMapper;
 
-    public Memo getMemo(Long bookId) {
-        return memoMapper.getMemo(bookId);
+    public Memo getMemo(Long id) {
+        return memoMapper.getMemo(id);
     }
 
     public List<Memo> getMemoList(Long bookId, String userId) {

@@ -7,10 +7,10 @@ public interface MemoRepository {
     /**
      * メモを取得する
      * 
-     * @param bookId
-     * @return
+     * @param id メモID
+     * @return メモ
      */
-    public Memo getMemo(Long bookId);
+    public Memo getMemo(Long id);
 
     /**
      * メモリストを取得する

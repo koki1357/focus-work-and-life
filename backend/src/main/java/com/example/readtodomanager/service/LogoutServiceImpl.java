@@ -24,7 +24,7 @@ public class LogoutServiceImpl implements LogoutService {
         // セッション情報を削除
         sessionRepository.delete(userId);
 
-        return ResponseEntity.ok(new ApiResponse<>(StatusCode.OK, null));
+        return ResponseEntity.ok(ApiResponse.of(StatusCode.OK, null));
     }
 
 }
