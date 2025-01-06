@@ -6,13 +6,14 @@ import lombok.Data;
 
 @Data
 public class ApiResponse<T> {
+    @JsonProperty("status")
     private int statusCode;
     private String message;
     private T data;
 
     @JsonCreator
     public ApiResponse(
-        @JsonProperty("statusCode") int statusCode,
+        @JsonProperty("status") int statusCode,
         @JsonProperty("message") String message,
         @JsonProperty("data") T data) {
         this.statusCode = statusCode;

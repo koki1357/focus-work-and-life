@@ -43,7 +43,7 @@ public class DeleteBookServiceImpl implements DeleteBookService {
         Set<ConstraintViolation<DeleteBookServiceInDto>> violations = CommonValidator.validate(serviceInDto);
 
         if (!violations.isEmpty()) {
-            return ResponseEntity.badRequest().body(new ApiResponse<String>(400, "不正なリクエストです"));
+            return ResponseEntity.badRequest().body(ApiResponse.of(400, "不正なリクエストです"));
         }
 
         Long id = serviceInDto.getId();
@@ -53,13 +53,13 @@ public class DeleteBookServiceImpl implements DeleteBookService {
 
         // ②業務チェック
         if (book == null) {
-            return ResponseEntity.badRequest().body(new ApiResponse<String>(StatusCode.BAD_REQUEST, "本が存在しません"));
+            return ResponseEntity.badRequest().body(ApiResponse.of(StatusCode.BAD_REQUEST, "本が存在しません"));
         }
 
         // ③削除処理
         bookRepository.delete(id);
 
         // ④200ステータスを詰めてreturn(ここは共通化したい)
-        return ResponseEntity.ok(new ApiResponse<String>(StatusCode.OK, null));
+        return ResponseEntity.ok(ApiResponse.of(StatusCode.OK, null));
     }
 }
