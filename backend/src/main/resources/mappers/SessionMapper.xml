@@ -10,13 +10,13 @@
         <result property="updatedAt" column="updated_at" />
     </resultMap> 
     <select id="findByUserId" parameterType="String" resultMap="SessionResultMap">
-        SELECT * FROM Session WHERE user_id = #{userId}
+        SELECT * FROM sessions WHERE user_id = #{userId}
     </select>
     <insert id="insert" parameterType="com.example.readtodomanager.model.Session">
-        INSERT INTO Session (user_id, token, expired_at, created_at, updated_at)
+        INSERT INTO sessions (user_id, token, expired_at, created_at, updated_at)
         VALUES (#{userId}, #{token}, #{expiredAt}, #{createdAt}, #{updatedAt})
     </insert>
     <delete id="delete" parameterType="com.example.readtodomanager.model.Session">
-        DELETE FROM Session WHERE user_id = #{userId}
+        DELETE FROM sessions WHERE user_id = #{userId}
     </delete>
 </mapper>
