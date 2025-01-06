@@ -4,6 +4,8 @@ package com.example.readtodomanager.deletememo;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
+import com.example.readtodomanager.common.StatusCode;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -45,7 +47,7 @@ public class DeleteMemoServiceImplTest {
 
         // Assert
         // 正常レスポンスが返却されることを確認する
-        assertEquals(200, actual.getBody().getStatusCode());
+        assertEquals(StatusCode.OK, actual.getBody().getStatusCode());
 
         // id=1のメモが削除されていることを確認する
         Memo deletedMemo = memoRepository.getMemo(input.getId());

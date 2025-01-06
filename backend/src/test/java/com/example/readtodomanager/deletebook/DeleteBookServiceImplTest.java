@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.List;
 
+import com.example.readtodomanager.common.StatusCode;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -41,7 +43,7 @@ public class DeleteBookServiceImplTest {
         ResponseEntity<ApiResponse<String>> response = deleteBookService.deleteBook(dto);
 
         // Assert
-        assertEquals(200, response.getBody().getStatusCode());
+        assertEquals(StatusCode.OK, response.getBody().getStatusCode());
 
         Book deletedBook = searchBookRepository.findById(1L);
         assertNull(deletedBook);
@@ -65,7 +67,7 @@ public class DeleteBookServiceImplTest {
         ResponseEntity<ApiResponse<String>> response = deleteBookService.deleteBook(dto);
 
         // Assert
-        assertEquals(400, response.getBody().getStatusCode());
+        assertEquals(StatusCode.BAD_REQUEST, response.getBody().getStatusCode());
 
         // Assert
         // 件数が変わっていないことの確認
