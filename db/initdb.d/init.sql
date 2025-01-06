@@ -57,7 +57,7 @@ CREATE TABLE Session (
 
 -- ユーザーデータの挿入
 INSERT INTO Users (user_id, password) VALUES 
-('test_user', 'cGFzc3dvcmQ='); -- 左記はハッシュ化されたパスワード。実際にログインする時のパスワードには 'password'を使用
+('test_user', '$2a$10$bsbVfCCs1EVT2xHgBOZsfuNki3PRIxFTy/aps9bEKICFAGFWfmS6W'); -- BCryptでハッシュ化されたパスワード。実際にログインする時のパスワードには 'password'を使用
 
 -- 書籍データの挿入
 INSERT INTO Books (user_id, title, author, image, days_per_week, start_date, finish_date) VALUES 
