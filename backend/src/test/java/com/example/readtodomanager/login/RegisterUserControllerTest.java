@@ -38,6 +38,10 @@ public class RegisterUserControllerTest {
         ResponseEntity<ApiResponse<?>> response = restTemplate.postForEntity(
             "/api/auth/user", request, (Class<ApiResponse<?>>)(Object)ApiResponse.class);
 
+        // Debug output
+        System.out.println("Response status: " + response.getStatusCode());
+        System.out.println("Response body: " + response.getBody());
+
         // then
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         
