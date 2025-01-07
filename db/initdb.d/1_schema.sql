@@ -2,6 +2,7 @@
 積読本管理アプリケーション用データベース初期化スクリプト
 */
 
+CREATE DATABASE IF NOT EXISTS tsundoku_db;
 USE tsundoku_db;
 
 -- DDL（Data Definition Language）セクション開始
@@ -17,17 +18,17 @@ CREATE TABLE Users (
 );
 
 -- 積読本テーブルの作成
-    CREATE TABLE Books (
-        id INT AUTO_INCREMENT PRIMARY KEY,
-        user_id VARCHAR(50) NOT NULL,
-        title VARCHAR(255) NOT NULL,
-        image TEXT,
-        author VARCHAR(100),
-        start_date DATE,
-        finish_date DATE,
-        days_per_week VARCHAR(5),
-        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+CREATE TABLE Books (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id VARCHAR(50) NOT NULL,
+    title VARCHAR(255) NOT NULL,
+    image TEXT,
+    author VARCHAR(100),
+    start_date DATE,
+    finish_date DATE,
+    days_per_week VARCHAR(5),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
 -- -- メモテーブルの作成

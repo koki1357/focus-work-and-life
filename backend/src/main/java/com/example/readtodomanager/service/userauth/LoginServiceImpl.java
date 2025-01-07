@@ -1,4 +1,4 @@
-package com.example.readtodomanager.service;
+package com.example.readtodomanager.service.userauth;
 
 import java.util.Date;
 import java.util.UUID;
@@ -16,7 +16,7 @@ import com.example.readtodomanager.model.Session;
 import com.example.readtodomanager.model.User;
 import com.example.readtodomanager.repository.SessionRepository;
 import com.example.readtodomanager.repository.UserRepository;
-import com.example.readtodomanager.service.dto.LoginServiceInDto;
+import com.example.readtodomanager.service.userauth.dto.LoginServiceInDto;
 
 @Service
 @Transactional

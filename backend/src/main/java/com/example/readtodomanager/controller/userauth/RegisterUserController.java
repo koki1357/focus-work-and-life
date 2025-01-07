@@ -1,4 +1,4 @@
-package com.example.readtodomanager.controller;
+package com.example.readtodomanager.controller.userauth;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.readtodomanager.common.ApiResponse;
-import com.example.readtodomanager.controller.dto.RegisterUserControllerInDto;
-import com.example.readtodomanager.service.RegisterUserService;
-import com.example.readtodomanager.service.dto.RegisterUserServiceInDto;
+import com.example.readtodomanager.controller.userauth.dto.RegisterUserControllerInDto;
+import com.example.readtodomanager.service.userauth.RegisterUserService;
+import com.example.readtodomanager.service.userauth.dto.RegisterUserServiceInDto;
 
 @RestController
 @RequestMapping("/api/auth")
