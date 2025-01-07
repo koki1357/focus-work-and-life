@@ -30,10 +30,12 @@ jobs:
       - name: Set up DB Schema
         run: |
           mysql -h127.0.0.1 -uroot -ptsundoku01 < ./db/schema.sql
+         working-directory: . # リポジトリのルートディレクトリを指定
 
       - name: Load Test Data
         run: |
           mysql -h127.0.0.1 -uroot -ptsundoku01 tsundoku_db < ./db/testdata.sql
+        working-directory: . # リポジトリのルートディレクトリを指定
 
       - name: Test with Gradle
         run: ./gradlew test
