@@ -2,7 +2,7 @@ name: Backend Tests
 
 on:
   push:
-    branches: [main]
+    branches: [feature/4-setup-github-actions]
   pull_request:
     branches: [main]
 
