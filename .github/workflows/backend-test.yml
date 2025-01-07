@@ -28,12 +28,12 @@ jobs:
           distribution: "temurin"
 
       - name: Set up DB Schema
-        run: mysql -h127.0.0.1 -uroot -ptsundoku01 < ./db/schema.sql
-        working-directory: .
+        run: mysql -h127.0.0.1 -uroot -ptsundoku01 < ./db/1_schema.sql
+        working-directory: ./db/initdb.d
 
       - name: Load Test Data
-        run: mysql -h127.0.0.1 -uroot -ptsundoku01 tsundoku_db < ./db/testdata.sql
-        working-directory: .
+        run: mysql -h127.0.0.1 -uroot -ptsundoku01 tsundoku_db < ./db/2_testdata.sql
+        working-directory: ./db/initdb.d
 
       - name: Test with Gradle
         run: ./gradlew test
