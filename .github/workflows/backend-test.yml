@@ -43,7 +43,7 @@ jobs:
         run: mysql -h127.0.0.1 -uroot -ptsundoku01 tsundoku_db < db/initdb.d/1_schema.sql
 
       - name: Load Test Data
-        run: mysql -h127.0.0.1 -uroot -ptsundoku01 tsundoku_db < db/initdb.d/init.sql/2_testdata.sql
+        run: mysql -h127.0.0.1 -uroot -ptsundoku01 tsundoku_db < db/initdb.d/2_testdata.sql
 
       - name: Test with Gradle
         run: ./gradlew test
