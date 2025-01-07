@@ -14,9 +14,15 @@ jobs:
       mysql:
         image: mysql:8.0
         env:
-          MYSQL_ROOT_PASSWORD: root
+          MYSQL_ROOT_PASSWORD: tsundoku01
+          MYSQL_DATABASE: tsundoku_db
         ports:
           - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=3
 
     steps:
       - uses: actions/checkout@v4
@@ -34,10 +40,10 @@ jobs:
           ls -la db/
 
       - name: Set up DB Schema
-        run: mysql -h127.0.0.1 -uroot -ptsundoku01 < db/initdb.d/1_schema.sql
+        run: mysql -h127.0.0.1 -uroot -ptsundoku01 tsundoku_db < db/initdb.d/1_schema.sql
 
       - name: Load Test Data
-        run: mysql -h127.0.0.1 -uroot -ptsundoku01 < db/initdb.d/init.sql/2_testdata.sql
+        run: mysql -h127.0.0.1 -uroot -ptsundoku01 tsundoku_db < db/initdb.d/init.sql/2_testdata.sql
 
       - name: Test with Gradle
         run: ./gradlew test
