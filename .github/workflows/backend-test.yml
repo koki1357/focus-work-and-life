@@ -27,12 +27,18 @@ jobs:
           java-version: "17"
           distribution: "temurin"
 
+      - name: Check file locations
+        run: |
+          pwd
+          ls -la
+          ls -la db/
+
       - name: Set up DB Schema
-        run: mysql -h127.0.0.1 -uroot -ptsundoku01 < .db/initdb.d/1_schema.sql
+        run: mysql -h127.0.0.1 -uroot -ptsundoku01 < db/initdb.d/1_schema.sql
 
       - name: Load Test Data
-        run: mysql -h127.0.0.1 -uroot -ptsundoku01 < .db//initdb.d/init.sql/2_testdata.sql
+        run: mysql -h127.0.0.1 -uroot -ptsundoku01 < db/initdb.d/init.sql/2_testdata.sql
 
       - name: Test with Gradle
         run: ./gradlew test
-        working-directory: ./backend
+        working-directory: backend
