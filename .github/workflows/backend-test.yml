@@ -11,6 +11,8 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write # GitHub Pagesへのテスト結果公開設定
 
     services:
       mysql:
