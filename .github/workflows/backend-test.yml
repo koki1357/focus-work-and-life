@@ -5,8 +5,9 @@ on:
   push:
     branches:
       - "feature/**"
+    # backendディレクトリの変更時のみ実行
     paths:
-      - "backend/**" # backendディレクトリの変更時のみ実行
+      - "backend/**"
   pull_request:
     branches: [main]
     types: [opened, synchronize, reopened]
