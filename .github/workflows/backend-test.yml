@@ -76,3 +76,4 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: backend/build/reports/tests/test
           force_orphan: true # 既存のgh-pagesブランチを上書き
+
