@@ -1,4 +1,4 @@
-package com.example.readtodomanager.controller;
+package com.example.readtodomanager.controller.userauth;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.readtodomanager.common.ApiResponse;
-import com.example.readtodomanager.controller.dto.LoginControllerInDto;
+import com.example.readtodomanager.controller.userauth.dto.LoginControllerInDto;
 import com.example.readtodomanager.model.LoginResponse;
-import com.example.readtodomanager.service.LoginService;
-import com.example.readtodomanager.service.dto.LoginServiceInDto;
+import com.example.readtodomanager.service.userauth.LoginService;
+import com.example.readtodomanager.service.userauth.dto.LoginServiceInDto;
 
 
 @RestController

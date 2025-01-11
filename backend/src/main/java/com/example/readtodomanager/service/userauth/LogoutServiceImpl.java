@@ -1,4 +1,4 @@
-package com.example.readtodomanager.service;
+package com.example.readtodomanager.service.userauth;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.example.readtodomanager.common.ApiResponse;
 import com.example.readtodomanager.common.StatusCode;
 import com.example.readtodomanager.repository.SessionRepository;
-import com.example.readtodomanager.service.dto.LogoutInDto;
+import com.example.readtodomanager.service.userauth.dto.LogoutInDto;
 
 @Service
 @Transactional

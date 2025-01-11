@@ -1,4 +1,4 @@
-package com.example.readtodomanager.service.dto;
+package com.example.readtodomanager.service.userauth.dto;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;

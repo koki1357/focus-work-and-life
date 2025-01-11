@@ -1,0 +1,89 @@
+name: Backend Tests
+
+on:
+  # feature ブランチでの開発時はテストレポートを確認したい
+  push:
+    branches:
+      - "feature/**"
+    # backendディレクトリの変更時のみ実行
+    paths:
+      - "backend/**"
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    # 同じブランチでの重複実行を制御
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
+      cancel-in-progress: false # 古い実行を完了させる
+
+    permissions:
+      contents: write # GitHub Pagesへのテスト結果公開設定
+
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: tsundoku01
+          MYSQL_DATABASE: tsundoku_db
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=3
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: "17"
+          distribution: "temurin"
+
+      - name: Check file locations
+        run: |
+          pwd
+          ls -la
+          ls -la db/
+
+      - name: Set up DB Schema
+        run: mysql -h127.0.0.1 -uroot -ptsundoku01 tsundoku_db < db/initdb.d/1_schema.sql
+
+      - name: Load Test Data
+        run: mysql -h127.0.0.1 -uroot -ptsundoku01 tsundoku_db < db/initdb.d/2_testdata.sql
+
+      - name: Test with Gradle
+        run: ./gradlew test
+        working-directory: backend
+
+      - name: Publish Test Report
+        uses: mikepenz/action-junit-report@v3
+        if: always()
+        with:
+          report_paths: "**/build/test-results/test/TEST-*.xml"
+          working-directory: backend
+
+      - name: Upload Test Results
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-results
+          path: |
+            backend/build/reports/tests/test/
+            backend/build/test-results/test/
+
+      - name: Publish to GitHub Pages
+        if: success()
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: backend/build/reports/tests/test
+          force_orphan: true # 既存のgh-pagesブランチを上書き
+

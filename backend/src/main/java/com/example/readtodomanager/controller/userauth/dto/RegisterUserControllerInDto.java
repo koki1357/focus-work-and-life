@@ -1,4 +1,4 @@
-package com.example.readtodomanager.controller.dto;
+package com.example.readtodomanager.controller.userauth.dto;
 
 import lombok.Data;
 

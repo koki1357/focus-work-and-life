@@ -1,9 +1,9 @@
-package com.example.readtodomanager.service;
+package com.example.readtodomanager.service.userauth;
 
 import org.springframework.http.ResponseEntity;
 
 import com.example.readtodomanager.common.ApiResponse;
-import com.example.readtodomanager.service.dto.LogoutInDto;
+import com.example.readtodomanager.service.userauth.dto.LogoutInDto;
 
 public interface LogoutService {
     public ResponseEntity<ApiResponse<?>> logout(LogoutInDto request);

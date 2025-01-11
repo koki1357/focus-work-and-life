@@ -1,4 +1,4 @@
-package com.example.readtodomanager.service;
+package com.example.readtodomanager.service.userauth;
 
 import java.util.Set;
 
@@ -14,7 +14,7 @@ import com.example.readtodomanager.common.ApiResponse;
 import com.example.readtodomanager.common.StatusCode;
 import com.example.readtodomanager.model.User;
 import com.example.readtodomanager.repository.UserRepository;
-import com.example.readtodomanager.service.dto.RegisterUserServiceInDto;
+import com.example.readtodomanager.service.userauth.dto.RegisterUserServiceInDto;
 import com.example.readtodomanager.validator.CommonValidator;
 
 @Service

@@ -56,7 +56,7 @@ public class UpdateBookMemoServiceImplTest {
     public void 正常系_メモ更新_メモがnull() {
         // Arrange
         UpdateMemoServiceInDto input = new UpdateMemoServiceInDto();
-        input.setId(null);
+        input.setId(1L);
         input.setUserId("user1");
         input.setContent(null);
 
