@@ -1,16 +1,25 @@
 name: Backend Tests
 
 on:
+  # feature ブランチでの開発時はテストレポートを確認したい
   push:
     branches:
-      - "main" # mainブランチすべて
-      - "feature/**" # featureブランチすべて
+      - "feature/**"
+    paths:
+      - "backend/**" # backendディレクトリの変更時のみ実行
   pull_request:
     branches: [main]
+    types: [opened, synchronize, reopened]
 
 jobs:
   test:
     runs-on: ubuntu-latest
+
+    # 同じブランチでの重複実行を制御
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
+      cancel-in-progress: false # 古い実行を完了させる
+
     permissions:
       contents: write # GitHub Pagesへのテスト結果公開設定
 
