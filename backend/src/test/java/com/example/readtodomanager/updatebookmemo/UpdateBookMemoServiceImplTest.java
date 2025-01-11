@@ -51,23 +51,23 @@ public class UpdateBookMemoServiceImplTest {
     // 1. テスト対象メソッド: updateBookMemo
     // 2. 入力値: UpdateBookMemoServiceInDto(id=1, request="user1", memo=null)
     // 3. 期待値: Book(id=1, memo=null)が取得できること
-    // @Test
-    // @Sql(scripts = { "/updatebookmemo/schema.sql", "/updatebookmemo/data.sql" })
-    // public void 正常系_メモ更新_メモがnull() {
-    //     // Arrange
-    //     UpdateMemoServiceInDto input = new UpdateMemoServiceInDto();
-    //     input.setId(null);
-    //     input.setUserId("user1");
-    //     input.setContent(null);
+    @Test
+    @Sql(scripts = { "/updatebookmemo/schema.sql", "/updatebookmemo/data.sql" })
+    public void 正常系_メモ更新_メモがnull() {
+        // Arrange
+        UpdateMemoServiceInDto input = new UpdateMemoServiceInDto();
+        input.setId(1L);
+        input.setUserId("user1");
+        input.setContent(null);
 
-    //     // Act
-    //     updateBookMemoService.updateBookMemo(input);
+        // Act
+        updateBookMemoService.updateBookMemo(input);
 
-    //     // Assert
-    //     Memo updatedBook = memoRepository.getMemo(input.getId());
-    //     assertEquals(input.getContent(), updatedBook.getContent());
+        // Assert
+        Memo updatedBook = memoRepository.getMemo(input.getId());
+        assertEquals(input.getContent(), updatedBook.getContent());
 
-    // }
+    }
 
     // 異常系 idがnull
     // 1. テスト対象メソッド: updateBookMemo
