@@ -2,7 +2,9 @@ name: Backend Tests
 
 on:
   push:
-    branches: [feature/4-setup-github-actions]
+    branches:
+      - "main" # mainブランチすべて
+      - "feature/**" # featureブランチすべて
   pull_request:
     branches: [main]
 
@@ -48,3 +50,26 @@ jobs:
       - name: Test with Gradle
         run: ./gradlew test
         working-directory: backend
+
+      - name: Publish Test Report
+        uses: mikepenz/action-junit-report@v3
+        if: always()
+        with:
+          report_paths: "**/build/test-results/test/TEST-*.xml"
+          working-directory: backend
+
+      - name: Upload Test Results
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-results
+          path: |
+            backend/build/reports/tests/test/
+            backend/build/test-results/test/
+
+      - name: Publish to GitHub Pages
+        if: success()
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: backend/build/reports/tests/test
